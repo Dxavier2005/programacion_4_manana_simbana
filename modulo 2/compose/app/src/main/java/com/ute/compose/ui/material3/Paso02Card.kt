@@ -1,5 +1,4 @@
-// ui/Paso02_Card.kt
-
+package com.ute.compose.ui.material3
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -14,8 +13,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.tuapp.contactos.model.Contacto
-import com.tuapp.contactos.model.contactosDeMuestra
+import com.ute.compose.model.Contacto
+import com.ute.compose.model.contactosDeMuestra
 
 // ── Composable reutilizable — se usará desde el Paso 3 en adelante ───────────
 @Composable

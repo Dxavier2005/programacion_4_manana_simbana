@@ -23,10 +23,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var webView: WebView
     private lateinit var videoView: VideoView
 
-
-    private val youtubeWatchUrl = "https://www.youtube.com/watch?v=6BODDyZRF6A"
-    private val youtubeEmbedUrl="https://www.youtube.com/embed/kXYiU_JCYtU?playsinline=1&rel=0"
-
+    private val youtubeWatchUrl = "https://www.youtube.com/watch?v=muTqLhb97HQ"
+    private val youtubeEmbedUrl = "https://www.youtube.com/embed/muTqLhb97HQ?playsinline=1&rel=0"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -119,11 +117,12 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    override fun onBackPressed() {
-        if (this::webView.isInitialized && webView.canGoBack()) {
-            webView.goBack()
-        } else {
-            super.onBackPressed()
-        }
-    }
+    /*
+        override fun onBackPressed() {
+            if (this::webView.isInitialized && webView.canGoBack()) {
+                webView.goBack()
+            } else {
+                super.onBackPressed()
+            }
+        }*/
 }

@@ -1,12 +1,10 @@
 package com.ute.tts
 
-
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-
 
 class MainActivityHelloWorld : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

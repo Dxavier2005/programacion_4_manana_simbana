@@ -1,7 +1,5 @@
 package com.ute.compose.ui.screens
 
-// ui/S05_Modifier.kt
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -60,7 +58,9 @@ fun S05_ModifierScreen() {
                 .size(130.dp)
                 .background(Color(0xFFFFCDD2))    // 1° pinta (sin recorte aún)
                 .clip(RoundedCornerShape(16.dp))  // 2° recorta — tarde para el fondo
+                .clickable { ultimoClick = "background\nantes de\nclip ❌" }
                 .padding(12.dp),
+
             contentAlignment = Alignment.Center
         ) {
             Text("background\nantes de\nclip ❌",

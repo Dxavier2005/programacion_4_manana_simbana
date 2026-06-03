@@ -1,26 +1,20 @@
 fun main() {
-
-    val nombre = "Juan"
-    val apellido = "Paez"
-    val edad = 28
-
-    // var simple
+    
+    val nombre = "Peter"
+    val apellido= "Parker"
+    val edad =28
+    
+    //variable simple
     println("Hola $nombre")
-
-    // expresión
-    println("Nombre completo: ${nombre.uppercase()} ${apellido.uppercase()}")
-    println("Edad: ${edad + 6} años")
-
-    val nombreCompleto = "Nombre completo: ${nombre.uppercase()} ${apellido.uppercase()}"
-    println(nombreCompleto)
-
-    // string multilinea
+    //Expresion
+    println("Nombre Completo: ${nombre.uppercase()} ${apellido.uppercase()}")
+    println("Edad: ${edad+6} años")
+    
+    //Stringe Multilinea
     val tarjeta = """
-        |Nombre: $nombre $apellido
+    	|Nombre: $nombre $apellido
         |Edad: $edad
-        |Acceso: ${if (edad > 18) "Permitido" else "Denegado"}
-        |Nombre: $nombre $apellido
+        |Acceso: ${if(edad>=18)"Permitido" else "Denegado"}
     """.trimMargin()
-
-    print(tarjeta)
-}
+    println(tarjeta)
+}    
