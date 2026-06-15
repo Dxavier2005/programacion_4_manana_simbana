@@ -44,8 +44,6 @@ private fun SumaNumeros() {
             style = MaterialTheme.typography.labelLarge,
             color = MaterialTheme.colorScheme.primary)
 
-
-
         // Numero1
         OutlinedTextField(
             value           = numero1,

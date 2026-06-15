@@ -1,5 +1,7 @@
 package com.ute.compose.ui.material3
 
+// ui/Paso04_Scaffold.kt
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow

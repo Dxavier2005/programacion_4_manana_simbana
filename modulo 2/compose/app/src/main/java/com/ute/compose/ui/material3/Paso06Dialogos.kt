@@ -1,5 +1,6 @@
 package com.ute.compose.ui.material3
 
+// ui/Paso06_Dialogos.kt
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -24,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.ute.compose.model.Contacto
 import com.ute.compose.model.contactosDeMuestra
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

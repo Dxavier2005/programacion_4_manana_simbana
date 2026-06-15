@@ -1,5 +1,5 @@
+// ui/Paso05_NavBar.kt
 package com.ute.compose.ui.material3
-
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn

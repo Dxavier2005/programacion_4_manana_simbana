@@ -5,7 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -18,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.ute.compose.ui.theme.ComposeTheme
 
-class MainActivityHelloWorld : ComponentActivity() {
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -26,7 +25,7 @@ class MainActivityHelloWorld : ComponentActivity() {
             ComposeTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
-                        name = "desde el 4to semestre",
+                        name = "Android",
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -39,8 +38,8 @@ class MainActivityHelloWorld : ComponentActivity() {
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
         text = "Hello $name!",
-        modifier  = Modifier.fillMaxWidth(),
-        color=Color.Red,
+        modifier = modifier,
+        color = Color.Red,
         fontSize = 30.sp,
         fontWeight = FontWeight.Bold,
         textAlign = TextAlign.Center

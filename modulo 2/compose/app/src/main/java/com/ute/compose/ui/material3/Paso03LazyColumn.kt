@@ -1,5 +1,7 @@
 package com.ute.compose.ui.material3
 
+// ui/Paso03_LazyColumn.kt
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -16,7 +18,7 @@ import com.ute.compose.model.Contacto
 import com.ute.compose.model.contactosDeMuestra
 
 @Composable
-fun Paso03LazyColumnScreen() {
+fun Paso03_LazyColumnScreen() {
     // Estado mutable de la lista — usamos mutableStateOf con una lista
     // Al reasignar la lista, Compose detecta el cambio y recompone
     var contactos by remember { mutableStateOf(contactosDeMuestra) }
@@ -154,5 +156,5 @@ fun Paso03LazyColumnScreen() {
 @Preview(showBackground = true)
 @Composable
 fun Paso03Preview() {
-    MaterialTheme { Paso03LazyColumnScreen() }
+    MaterialTheme { Paso03_LazyColumnScreen() }
 }
