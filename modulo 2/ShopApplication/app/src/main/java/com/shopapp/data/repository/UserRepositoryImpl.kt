@@ -10,6 +10,8 @@ import javax.inject.Inject
 import javax.inject.Singleton
 import android.content.Context
 import android.net.Uri
+import com.shopapp.data.remote.dto.SendNotificationDto
+import com.shopapp.domain.model.NotificationResult
 import dagger.hilt.android.qualifiers.ApplicationContext
 
 
@@ -36,6 +38,20 @@ class UserRepositoryImpl @Inject constructor(
         val response = api.getUser(id)
         if (response.isSuccessful) response.body()!!.toDomain()
         else error("Error ${response.code()}")
+    }
+
+    override suspend fun sendNotification(
+        subject: String,
+        message: String,
+        userId: Int?
+    ): Result<NotificationResult> = runCatching {
+        val response = api.sendNotification(SendNotificationDto(subject, message, userId))
+        if (response.isSuccessful) {
+            val body = response.body()!!
+            NotificationResult(body.detail, body.sent, body.failed)
+        } else {
+            error(response.errorBody()?.string() ?: "Error ${response.code()}")
+        }
     }
 
     override suspend fun createUser(payload: UserPayload): Result<User> = runCatching {
