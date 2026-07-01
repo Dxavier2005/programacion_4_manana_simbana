@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 
 class ServicioEstado extends StatefulWidget {
   final String nombre;
-  const ServicioEstado({super.key, required this.nombre});
+
+  const ServicioEstado({
+    super.key,
+    required this.nombre,
+  });
 
   @override
   State<ServicioEstado> createState() => _ServicioEstadoState();
@@ -12,25 +16,40 @@ class _ServicioEstadoState extends State<ServicioEstado> {
   bool _activo = true;
   int _reinicios = 0;
 
-  // Cambio: de 3 a 1
   static const int _maxReinicios = 1;
 
-  // Cambio: nuevo estado
   String _nivel = 'normal';
+
+  void _actualizarNivel() {
+    if (_reinicios >= 2) {
+      _nivel = 'critico';
+    } else if (_reinicios >= 1) {
+      _nivel = 'warning';
+    } else {
+      _nivel = 'normal';
+    }
+  }
+
+  Color _colorNivel() {
+    switch (_nivel) {
+      case 'warning':
+        return Colors.orange;
+      case 'critico':
+        return Colors.red;
+      default:
+        return Colors.green;
+    }
+  }
 
   void _toggle() {
     setState(() {
       _activo = !_activo;
-      if (_activo) _reinicios++;
 
-      // Cambio: actualizar nivel
-      if (_reinicios >= 2) {
-        _nivel = 'critico';
-      } else if (_reinicios >= 1) {
-        _nivel = 'warning';
-      } else {
-        _nivel = 'normal';
+      if (_activo) {
+        _reinicios++;
       }
+
+      _actualizarNivel();
     });
   }
 
@@ -44,27 +63,15 @@ class _ServicioEstadoState extends State<ServicioEstado> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
 
-          // ── Patrón 1: Ícono + color condicional ─────────────────
+          // Ícono con nivel
           Icon(
             _activo ? Icons.wifi : Icons.wifi_off,
             size: 72,
-            color: _nivel == 'normal'
-                ? Colors.green
-                : _nivel == 'warning'
-                    ? Colors.orange
-                    : Colors.red,
+            color: _colorNivel(),
           ),
+
           const SizedBox(height: 8),
 
-          Text(
-            widget.nombre,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-            ),
-          ),
-
-          // ── Patrón 2: Texto condicional ──────────────────────────
           Text(
             _activo ? 'En línea' : 'Fuera de línea',
             style: TextStyle(
@@ -76,69 +83,110 @@ class _ServicioEstadoState extends State<ServicioEstado> {
                   _activo ? Colors.green.shade700 : Colors.red.shade700,
             ),
           ),
+
           const SizedBox(height: 16),
 
-          // ── Patrón 3: Widget que aparece / desaparece ────────────
+          Text(
+            widget.nombre,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+          ),
+
+          const SizedBox(height: 8),
+
+          Text(
+            'Nivel: $_nivel',
+            style: TextStyle(
+              color: _colorNivel(),
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+
+          const SizedBox(height: 16),
+
           if (!_activo)
             Container(
               margin: const EdgeInsets.only(bottom: 16),
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 14,
+                vertical: 8,
+              ),
               decoration: BoxDecoration(
                 color: Colors.red.shade50,
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.red.shade300),
+                border: Border.all(
+                  color: Colors.red.shade300,
+                ),
               ),
               child: const Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.warning_amber, color: Colors.red, size: 16),
+                  Icon(
+                    Icons.warning_amber,
+                    color: Colors.red,
+                    size: 16,
+                  ),
                   SizedBox(width: 6),
                   Text(
                     'Requiere atención',
-                    style: TextStyle(color: Colors.red, fontSize: 13),
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 13,
+                    ),
                   ),
                 ],
               ),
             ),
 
-          // Cambio: FilledButton → ElevatedButton
           ElevatedButton.icon(
             onPressed: enLimite ? null : _toggle,
-            icon: Icon(_activo ? Icons.stop : Icons.play_arrow),
+            icon: Icon(
+              _activo
+                  ? Icons.stop
+                  : Icons.play_arrow,
+            ),
             label: Text(
-              _activo ? 'Detener servicio' : 'Iniciar servicio',
+              _activo
+                  ? 'Detener servicio'
+                  : 'Iniciar servicio',
             ),
             style: ElevatedButton.styleFrom(
               backgroundColor:
-                  _activo ? Colors.red.shade600 : Colors.green.shade600,
+                  _activo
+                      ? Colors.red.shade600
+                      : Colors.green.shade600,
             ),
           ),
+
           const SizedBox(height: 12),
 
-          // Cambio: botón para reiniciar
           TextButton(
             onPressed: () {
               setState(() {
                 _activo = true;
                 _reinicios = 0;
+                _nivel = 'normal';
               });
             },
-            child: const Text('Reiniciar'),
+            child: const Text('Reiniciar todo'),
           ),
 
-          // ── Patrón 5: Opacidad condicional ───────────────────────
           Opacity(
             opacity: enLimite ? 0.1 : 1.0,
             child: Text(
               'Reinicios: $_reinicios / $_maxReinicios',
               style: TextStyle(
                 fontSize: 13,
-                color: enLimite ? Colors.red : Colors.grey.shade600,
+                color:
+                    enLimite
+                        ? Colors.red
+                        : Colors.grey.shade600,
               ),
             ),
           ),
 
-          // ── Patrón 6: Widget condicional por otro estado ─────────
           if (enLimite)
             Padding(
               padding: const EdgeInsets.only(top: 8),

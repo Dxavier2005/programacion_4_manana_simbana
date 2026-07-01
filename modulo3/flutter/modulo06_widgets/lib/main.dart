@@ -1,10 +1,11 @@
-// lib/main.dart
 import 'package:flutter/material.dart';
-import 'widgets/catalogo_basicos.dart';
-import 'widgets/etiqueta.dart';
-import 'widgets/servicio_estado.dart';
-import 'widgets/contador_limitado.dart';
-import 'widgets/reloj.dart';
+import 'package:modulo06_widgets/screens/pantalla_contexto.dart';
+import 'package:modulo06_widgets/widgets/catalogo_basicos.dart';
+import 'package:modulo06_widgets/widgets/contador_limitado.dart';
+import 'package:modulo06_widgets/widgets/etiqueta.dart';
+import 'package:modulo06_widgets/screens/pantalla_contexto.dart';
+import 'package:modulo06_widgets/widgets/reloj.dart';
+import 'package:modulo06_widgets/widgets/servicio_estado.dart';
 
 // ┌──────────────────────────────────────────────────────────────────┐
 // │  Cambia este número y guarda (Ctrl+S) para navegar entre pasos. │
@@ -17,10 +18,17 @@ import 'widgets/reloj.dart';
 // │  7  Paso 5   BuildContext                                        │
 // │  8  Paso 6   Composición de widgets                             │
 // └──────────────────────────────────────────────────────────────────┘
-const int paso = 6;
+const int paso = 7;
 
 void main() => runApp(MaterialApp(
   debugShowCheckedModeBanner: false,
+  theme: ThemeData(
+    colorScheme:  ColorScheme.fromSeed(
+      seedColor:  Colors.deepPurple,          // ← cambia aquí
+      brightness: Brightness.dark,     // ← Brightness.dark para modo oscuro
+    ),
+    useMaterial3: true,
+  ),
   home: switch (paso) {
     1 => const Scaffold(body: Center(child: Saludo())),
     2 => const CatalogoBasicos(),
@@ -39,6 +47,11 @@ void main() => runApp(MaterialApp(
         ),
       ),
     ),
+    4 => const Scaffold(
+      body: Center(
+        child: ServicioEstado(nombre: 'nginx-proxy'),
+      ),
+    ),
     5 => Scaffold(                               // Paso 3b
       body: Center(
         child: Column(
@@ -46,15 +59,16 @@ void main() => runApp(MaterialApp(
           children: [
             ContadorLimitado(
               etiqueta: 'Intentos de login',
-              limite:   3,
-              color:    Colors.red,
+              limite:   1,
+              color:    Colors.deepPurple,
+              textoBoton: 'Intentar',
               onLimite: () => debugPrint('¡Cuenta bloqueada!'),
             ),
             const SizedBox(height: 40),
             ContadorLimitado(
               etiqueta: 'Conexiones activas',
               limite:   10,
-              color:    Colors.indigo,
+              color:    Colors.indigo, textoBoton: '',
             ),
           ],
         ),
@@ -64,40 +78,32 @@ void main() => runApp(MaterialApp(
       appBar: AppBar(title: const Text('Cronómetro')),
       body: const Center(child: Reloj()),
     ),
-    4 => const Scaffold(
-      body: Center(
-        child: ServicioEstado(nombre: 'nginx-proxy'),
-      ),
-    ),
+    7 => const PantallaContexto(),    // Paso 5 — ya tiene su propio Scaffold
     _ => Scaffold(body: Center(child: Text('Paso $paso: crea el widget primero'))),
   },
+  
 ));
-
 
 class Saludo extends StatelessWidget {
   const Saludo({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Describe cómo se ve
-    return const Text(
-      'Aunque la NOAA detectó condiciones asociadas al fenómeno y modelos anti',
+    // describe cómo se ve
+    return const SelectableText(
+      'Aunque la NOAA detectó condiciones asociadas al fenómeno y modelos anticipan un evento entre moderado y fuerte, aún no hay evidencias lo que serán los impactos.',
       style: TextStyle(
         fontSize: 32,
         fontWeight: FontWeight.bold,
         letterSpacing: 4,
         color: Colors.deepPurple,
         shadows: [
-          Shadow(
-            color: Colors.black26,
-            blurRadius: 4,
-            offset: Offset(2, 2),
-          ),
-        ],
-      ), // TextStyle
+          Shadow(color: Colors.black26, blurRadius: 4, offset: Offset(4, 4)),
+        ]
+      ),
       textAlign: TextAlign.left,
-      overflow: TextOverflow.ellipsis,
+      //overflow: TextOverflow.ellipsis,
       maxLines: 3,
-    ); // Text
+    );
   }
 }
