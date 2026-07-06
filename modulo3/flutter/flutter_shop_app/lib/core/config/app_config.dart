@@ -9,4 +9,3 @@ class AppConfig {
   static const String appName = 'Flutter Shop App';
   static const double taxRate = 0.15; // IVA Ecuador 15 %
 }
-}
