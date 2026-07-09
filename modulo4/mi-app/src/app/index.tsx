@@ -1,98 +1,71 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+// app/index.tsx
+import { StyleSheet, Text, View } from 'react-native'
+import Paso2 from './paso2'
+import Paso3 from './paso3'
+import {TarjetaServidor} from './components/TarjetaServidor'
+// ┌──────────────────────────────────────────────────────────────────┐
+// │  Cambia este número y guarda (Ctrl+S) para navegar entre pasos. │
+// │  1  Paso 1  Texto y vistas básicas                               │
+// │  2  Paso 2  Imágenes y botones                                   │
+// └──────────────────────────────────────────────────────────────────┘
+const PASO = 3
 
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
-
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
+export default function Index() {
+  switch (PASO) {
+    
+    default:
+      return (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <Text>Paso {PASO}: crea la pantalla primero</Text>
+        </View>
+      )
   }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
-  return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
 }
 
-export default function HomeScreen() {
+// ─── Paso 1 — lo creamos abajo ──────────────────────────────────────
+function Paso1() {
   return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
-
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
-
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
-
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
-  );
+    <View style={styles.fondo}>
+      <Text style={styles.encabezado}>Inventario de servidores</Text>
+      <TarjetaServidor
+        nombre="web-01"
+        ip="10.0.2.10"
+        sistema="Ubuntu 24.04 LTS"
+        puerto={22}
+      />
+      <TarjetaServidor
+        nombre="db-primary"
+        ip="10.0.2.20"
+        sistema="Debian 12"
+        puerto={5432}
+      />
+      <TarjetaServidor
+        nombre="cache-01"
+        ip="10.0.2.30"
+        sistema="Alpine 3.19"
+        puerto={6379}
+      />
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
-  container: {
+  fondo: {
+    flex: 1,
+    backgroundColor: '#f0f4f8',
+    padding: 20,
+    paddingTop: 60,
+    gap: 12,
+  },
+  centrado: {
     flex: 1,
     justifyContent: 'center',
-    flexDirection: 'row',
-  },
-  safeArea: {
-    flex: 1,
-    paddingHorizontal: Spacing.four,
     alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
   },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
+  encabezado: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#1a237e',
+    marginBottom: 4,
   },
-  title: {
-    textAlign: 'center',
-  },
-  code: {
-    textTransform: 'uppercase',
-  },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
-  },
-});
+})
