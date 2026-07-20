@@ -10,7 +10,7 @@ interface TarjetaServidorProps {
 
 }
 
-function TarjetaServidor({ nombre, ip, sistema, puerto}: TarjetaServidorProps) {
+export  default function TarjetaServidor({ nombre, ip, sistema, puerto}: TarjetaServidorProps) {
   return (
     <View style={styles.tarjeta}>
       <Text style={styles.nombreServidor}>{nombre}</Text>
