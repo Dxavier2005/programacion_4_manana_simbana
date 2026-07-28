@@ -29,10 +29,10 @@ class Efectivo : Pagable {
     }
 }
 
-class Cheque(val num_cheque: String) : Pagable {
+class Cheque : Pagable {
     override val nombre = "Cheque"
     override fun procesar(monto: Double): Boolean {
-        println("💵 Recibiendo $${"%.2f".format(monto)} a $num_cheque")
+        println("💵 Recibiendo $${"%.2f".format(monto)} en cheque")
         return true
     }
 }
@@ -50,12 +50,11 @@ fun main() {
         TarjetaCredito("**** **** **** 1234"),
         PayPal("ana@test.com"),
         Efectivo()
-        Cheque("0020")
     )
 
     // Misma función — comportamiento distinto según el tipo
-    for pago in.metodos() { cobrar(99.99, it) }
-    for (pago in metodos){
-        println("$pago.nombre")
+    //metodos.forEach { cobrar(99.99, it) }
+    metodos.for (metodo in metodos) {
+        
     }
 }

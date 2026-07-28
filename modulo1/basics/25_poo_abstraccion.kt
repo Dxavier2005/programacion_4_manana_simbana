@@ -11,6 +11,7 @@ class Producto(
 
     val disponible: Boolean
         get() = stock > 0
+
     override fun toString() = "$nombre ($${"%.2f".format(precio)})"
 }
 
@@ -20,6 +21,5 @@ fun main() {
     // El código externo usa la interfaz pública — no sabe el detalle interno
     println(teclado.disponible)   // true
     println(teclado.precioConIva) // 106.99
-    println(teclado)
     // teclado.stock = 0           // ERROR — privado, protegido por diseño
 }
