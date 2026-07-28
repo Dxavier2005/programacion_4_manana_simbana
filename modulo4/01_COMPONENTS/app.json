@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "01_COMPONENTS",
-    "slug": "01_COMPONENTS",
+    "name": "01_components",
+    "slug": "01_components",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",

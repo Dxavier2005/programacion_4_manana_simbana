@@ -1,19 +1,15 @@
+// lib/main.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:modulo12_api/pantallas/pantalla_paso1_users.dart'; // O el nombre real de tu archivo
 
-// ── Importa cada pantalla cuando la crees (descomenta la línea) ──────────────
-// import 'pantalla_paso1.dart';   // ← Paso 1
-// import 'pantalla_paso2.dart';   // ← Paso 2
-// import 'pantalla_paso3.dart';   // ← Paso 3
-// import 'pantalla_paso4.dart';   // ← Paso 4
-// import 'pantalla_paso5.dart';   // ← Paso 5
+import 'mp_pantalla_paso1.dart';
+import 'mp_pantalla_paso1_asistente.dart';
+import 'mp_pantalla_paso2.dart';
 
-// ── Pantalla temporal: muestra "próximamente" hasta que crees la pantalla real ─
-class PantallaTemporal extends StatelessWidget {
+class MpPantallaTemporal extends StatelessWidget {
   final String titulo;
-  const PantallaTemporal({required this.titulo, super.key});
+  const MpPantallaTemporal({required this.titulo, super.key});
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -25,7 +21,7 @@ class PantallaTemporal extends StatelessWidget {
           const Icon(Icons.hourglass_empty, size: 64, color: Colors.grey),
           const SizedBox(height: 16),
           Text(
-            '$titulo\nPróximamente…',
+            '$titulo\nPróximamente...',
             textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 20, color: Colors.grey),
           ),
@@ -41,77 +37,74 @@ class PantallaTemporal extends StatelessWidget {
   );
 }
 
-// ── Router — actualiza cada builder cuando crees la pantalla del paso ─────────
 final _router = GoRouter(
   initialLocation: '/',
   routes: [
-    GoRoute(path: '/', builder: (_, __) => const PantallaMenu()),
-
-    // Paso 1 → cuando termines, reemplaza PantallaTemporal por PantallaPaso1()
-  GoRoute(path: '/paso1', builder: (_, __) => const PantallaPaso1users()),
-
-    // Paso 2 → reemplaza por PantallaPaso2()
-    GoRoute(path: '/paso2', builder: (_, __) => const PantallaTemporal(titulo: 'Paso 2 · DTO simple')),
-
-    // Paso 3 → reemplaza por PantallaPaso3()
-    GoRoute(path: '/paso3', builder: (_, __) => const PantallaTemporal(titulo: 'Paso 3 · API real')),
-
-    // Paso 4 → reemplaza por PantallaPaso4()
-    GoRoute(path: '/paso4', builder: (_, __) => const PantallaTemporal(titulo: 'Paso 4 · Errores tipados')),
-
-    // Paso 5 → reemplaza por PantallaPaso5()
-    GoRoute(path: '/paso5', builder: (_, __) => const PantallaTemporal(titulo: 'Paso 5 · Arquitectura completa')),
+    GoRoute(path: '/', builder: (_, __) => const MpPantallaMenu()),
+    GoRoute(path: '/paso1', builder: (_, __) => const MpPantallaPaso1()),
+    GoRoute(path: '/paso1b', builder: (_, __) => const MpPantallaPaso1Asistente()),
+    GoRoute(path: '/paso2', builder: (_, __) => const MpPantallaPaso2()),
+    GoRoute(path: '/paso3', builder: (_, __) => const MpPantallaTemporal(titulo: 'Paso 3 · API real')),
+    GoRoute(path: '/paso4', builder: (_, __) => const MpPantallaTemporal(titulo: 'Paso 4 · Errores tipados')),
+    GoRoute(path: '/paso5', builder: (_, __) => const MpPantallaTemporal(titulo: 'Paso 5 · Arquitectura completa')),
   ],
 );
 
-void main() => runApp(const ProviderScope(child: AppHttp()));
+void main() => runApp(const ProviderScope(child: MpAppConferenciasApi()));
 
-class AppHttp extends StatelessWidget {
-  const AppHttp({super.key});
+class MpAppConferenciasApi extends StatelessWidget {
+  const MpAppConferenciasApi({super.key});
 
   @override
   Widget build(BuildContext context) => MaterialApp.router(
     debugShowCheckedModeBanner: false,
     routerConfig: _router,
     theme: ThemeData(
-      colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
+      colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF3F51B5)),
       useMaterial3: true,
     ),
   );
 }
 
-// ── Menú principal ─────────────────────────────────────────────────────────────
-class PantallaMenu extends StatelessWidget {
-  const PantallaMenu({super.key});
+class MpPantallaMenu extends StatelessWidget {
+  const MpPantallaMenu({super.key});
 
   @override
   Widget build(BuildContext context) {
     const pasos = [
-      _PasoInfo(
+      _MpPasoInfo(
         ruta: '/paso1',
         titulo: 'Paso 1',
         subtitulo: 'FutureBuilder crudo',
-        detalle: 'http.get() + FutureBuilder · JSONPlaceholder',
-        icono: Icons.network_ping,
-        color: Colors.blue,
+        detalle: 'http.get() + FutureBuilder · Inscripción individual',
+        icono: Icons.event_seat,
+        color: Colors.indigo,
       ),
-      _PasoInfo(
+      _MpPasoInfo(
+        ruta: '/paso1b',
+        titulo: 'Paso 1b',
+        subtitulo: 'FutureBuilder Users',
+        detalle: 'Asistente individual desde API',
+        icono: Icons.person,
+        color: Colors.teal,
+      ),
+      _MpPasoInfo(
         ruta: '/paso2',
         titulo: 'Paso 2',
         subtitulo: 'DTO simple',
-        detalle: 'TodoDto.fromJson · lista de tareas',
-        icono: Icons.data_object,
-        color: Colors.green,
+        detalle: 'MpInscripcionDto.fromJson · lista de inscripciones',
+        icono: Icons.list_alt,
+        color: Colors.blue,
       ),
-      _PasoInfo(
+      _MpPasoInfo(
         ruta: '/paso3',
         titulo: 'Paso 3',
-        subtitulo: 'API real + modelo de dominio',
-        detalle: 'ProductoDto · toDomain() · API Platzi',
+        subtitulo: 'API real + modelo',
+        detalle: 'ProductoDto · toDomain()',
         icono: Icons.shopping_bag,
         color: Colors.orange,
       ),
-      _PasoInfo(
+      _MpPasoInfo(
         ruta: '/paso4',
         titulo: 'Paso 4',
         subtitulo: 'Errores tipados',
@@ -119,7 +112,7 @@ class PantallaMenu extends StatelessWidget {
         icono: Icons.error_outline,
         color: Colors.red,
       ),
-      _PasoInfo(
+      _MpPasoInfo(
         ruta: '/paso5',
         titulo: 'Paso 5',
         subtitulo: 'Arquitectura completa',
@@ -131,7 +124,7 @@ class PantallaMenu extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Módulo 12 — API REST'),
+        title: const Text('Eventos AP - API REST'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: ListView.separated(
@@ -170,14 +163,14 @@ class PantallaMenu extends StatelessWidget {
   }
 }
 
-class _PasoInfo {
+class _MpPasoInfo {
   final String ruta;
   final String titulo;
   final String subtitulo;
   final String detalle;
   final IconData icono;
   final Color color;
-  const _PasoInfo({
+  const _MpPasoInfo({
     required this.ruta,
     required this.titulo,
     required this.subtitulo,

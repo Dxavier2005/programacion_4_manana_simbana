@@ -10,6 +10,7 @@ import '../screens/pantalla_metricas.dart';
 import '../screens/pantalla_ajustes.dart';
 import '../screens/pantalla_login.dart';
 import '../models/servidor_ssh.dart';
+import '../screens/pantalla_dashboard.dart';
 
 // Función que crea el router con acceso al WidgetRef (para el guard)
 GoRouter appRouterPaso5(WidgetRef ref) => GoRouter(
@@ -46,6 +47,7 @@ GoRouter appRouterPaso5(WidgetRef ref) => GoRouter(
         ),
         GoRoute(path: '/metricas', builder: (_, __) => const PantallaMetricas()),
         GoRoute(path: '/ajustes',  builder: (_, __) => const PantallaAjustes()),
+        GoRoute(path: '/Dashboard', builder: (_, __) => const PantallaDashboard()),
       ],
     ),
     GoRoute(
